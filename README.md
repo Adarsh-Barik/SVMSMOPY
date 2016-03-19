@@ -37,9 +37,9 @@ Currently, the program supports three types of kernel (linear, polynomial and ga
 I plotted decision boundary for second example from [here](http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLearning&doc=exercises/ex8/ex8.html). 
 * choice of kernel : RBF
 * RBFPARA : 100
-![alt tag](place_holder)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/ex8b_gamma100.png)
 * RBFPARA : 1000 
-![alt tag](place_holder)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/ex8b_gamma1000.png)
 
 ## TODO
 * Write output in a file (pretty soon)
