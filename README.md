@@ -31,7 +31,7 @@ Currently, the program supports three types of kernel (linear, polynomial and ga
 ## Codes
 * `MainLearning.py` : main program to be run
 * `ProcessTrainingInput.py` : Reads input from config file and checks their sanity
-* `InitializeTraining.py` : Actually readys training examples and stores them
+* `InitializeTraining.py` : Reads training examples and stores them
 
 ## Result
 I plotted decision boundary for second example from [here](http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLearning&doc=exercises/ex8/ex8.html). 
