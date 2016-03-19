@@ -1,6 +1,6 @@
 # SVM SMO in python
 
-The goal of this project is to solve [soft margin problem](https://en.wikipedia.org/wiki/Support_vector_machine#Soft-margin) in [Support Vector Machines](https://en.wikipedia.org/wiki/Support_vector_machine). SVM are used extensively in machine learning. I am using [Sequential Minimal Optimization](research.microsoft.com/pubs/69644/tr-98-14.pdf) to solve this problem.
+The goal of this project is to solve [soft margin problem](https://en.wikipedia.org/wiki/Support_vector_machine#Soft-margin) in [Support Vector Machines](https://en.wikipedia.org/wiki/Support_vector_machine). SVM are used extensively in machine learning. I am using [Sequential Minimal Optimization](https://research.microsoft.com/pubs/69644/tr-98-14.pdf) to solve this problem.
 
 
 ## Input format 
