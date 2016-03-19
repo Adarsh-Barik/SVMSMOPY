@@ -1,0 +1,12 @@
+[INPUT]
+# KERNEL_TYPE : 0 - linear, 1 - Polynomial, 2 - RBF
+KERNEL_TYPE = 2
+C = 2
+TRAINING_FILE = ex8b_mod.txt
+TRAINING_OUTPUT = training_output
+
+[POLYKERNEL]
+DEGREE = 4
+
+[RBFKERNEL]
+RBFPARA = 1000
