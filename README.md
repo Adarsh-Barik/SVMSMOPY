@@ -26,7 +26,7 @@ DEGREE = 4
 RBFPARA = 1000
 ```
 
-Currently, the program supports three types of kernel (linear, polynomial and gaussian). We specify a penalty parameter (C) which is required for each kernel. Training examples are read from `TRAINING_FILE` and output is written to `TRAINING_OUTPUT` file (TODO: Currently output is manaaged internally). If polynomial kernel is chosen then we must specify degree of polynomial kernel and if we choose RBF kernel then we must specify a positive RBFPARA which is essentially gamma in [usual formula](https://en.wikipedia.org/wiki/Radial_basis_function_kernel). 
+Currently, the program supports three types of kernel (linear, polynomial and gaussian). We specify a penalty parameter (C) which is required for each kernel. Training examples are read from `TRAINING_FILE` and output is written to `TRAINING_OUTPUT` files. If polynomial kernel is chosen then we must specify degree of polynomial kernel and if we choose RBF kernel then we must specify a positive RBFPARA which is essentially gamma in [usual formula](https://en.wikipedia.org/wiki/Radial_basis_function_kernel). 
 
 ## Codes
 * `MainLearning.py` : main program to be run
@@ -42,5 +42,4 @@ I plotted decision boundary for second example from [here](http://openclassroom.
 ![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/ex8b_gamma1000.png)
 
 ## TODO
-* Write output in a file (pretty soon)
 * Write a prediction module (soon)
