@@ -37,7 +37,7 @@ def fReadInput():
 		training_output = config.get('INPUT', 'TRAINING_OUTPUT')
 		kernel_degree = int(config.get('POLYKERNEL', 'DEGREE'))
 		kernel_rbf_para = float(config.get('RBFKERNEL', 'RBFPARA'))
-	except ValueError as e:
+	except ValueError:
 		print "ValueError: Check config file to see if something is weird."
 		sys.exit()
 	except:
@@ -50,11 +50,6 @@ def fReadInput():
 		sys.exit()
 	if not os.path.isfile(training_file):
 		print "TRAINING_FILE- ", training_file, " is missing."
-		sys.exit()
-	try:
-		open(training_output, 'w')
-	except IOError as e:
-		print "{0} {1} {2}".format(e.errno, e.strerror, e.filename)
 		sys.exit()
 
 	training_input = cTrainingInput(kernel_type, kernel_degree, kernel_rbf_para, c, training_file, training_output)

@@ -280,6 +280,17 @@ while (numChanged > 0 or examineAll):
 	iteration = iteration + 1
 	print "iteration: ", iteration
 
+# writing to output files
+if (static_info.kernel_type == 0):
+	weights = "weights_linear"+str(static_info.C)+"_"+trainingInput.training_output
+	np.savetxt(weights, dynamic_info.weights)
+threshold = "threshold_type"+str(static_info.kernel_type)+trainingInput.training_output
+lambdas = "lambdas_type"+str(static_info.kernel_type)+trainingInput.training_output
+nonzerolambdas = "nonzerolambdaind_type"+str(static_info.kernel_type)+trainingInput.training_output
+np.savetxt(threshold, [dynamic_info.threshold])
+np.savetxt(lambdas, dynamic_info.lambdas)
+np.savetxt(nonzerolambdas, dynamic_info.nonboundlambdaindices)
+
 
 # plot
 # x = [1, 1, 2, 1, 4, 2, 4, 5, 6, 2]
