@@ -41,5 +41,3 @@ I plotted decision boundary for second example from [here](http://openclassroom.
 * RBFPARA : 1000 
 ![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/ex8b_gamma1000.png)
 
-## TODO
-* Write a prediction module (soon)
