@@ -10,3 +10,7 @@ DEGREE = 4
 
 [RBFKERNEL]
 RBFPARA = 1000
+
+[PREDICTION]
+FILE_TO_PREDICT = predict_ex8b_500
+PREDICTION_OUTPUT = prediction_output 
