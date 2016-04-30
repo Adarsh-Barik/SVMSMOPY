@@ -7,7 +7,6 @@ from ProcessTrainingInput import *
 from collections import namedtuple
 from random import shuffle
 from math import fabs
-import matplotlib.pyplot as plt
 import numpy as np
 
 # define tolerance
@@ -239,79 +238,58 @@ class DynamicInfo():
 			self.error.append(0 - static_info.target[i])
 		self.threshold = 0
 
+if __name__ == '__main__':
 
-# Lets get input from config file
-trainingInput = fReadInput()
-target, training_example, numExample, maxFeature = fReadTrainingFile(trainingInput.training_file)
+	# Lets get input from config file
+	# print "Reading configuration file."
+	trainingInput = fReadInput()
+	print "Reading training input file."
+	target, training_example, numExample, maxFeature = fReadTrainingFile(trainingInput.training_file)
 
-static_info = StaticInfo(target, training_example, numExample, maxFeature, trainingInput.c, trainingInput.kernel_type, trainingInput.kernel_degree, trainingInput.kernel_rbf_para)
+	static_info = StaticInfo(target, training_example, numExample, maxFeature, trainingInput.c, trainingInput.kernel_type, trainingInput.kernel_degree, trainingInput.kernel_rbf_para)
 
 
-dynamic_info = DynamicInfo(static_info)
+	dynamic_info = DynamicInfo(static_info)
 
-# when we start no lambdas are changed
-numChanged = 0
-
-# We choose two strategy to choose lambda1
-# we iterate over the entire training set, determining whether each example
-# violates the KKT conditions. If an example violates the KKT conditions then
-# its eligible for optimization.
-# This is done by keeping the below flag one
-examineAll = 1
-
-# After one pass through the entire training set, the outer loop iterates
-# over all examples whose lambdas are neither 0 nor C. This will be done by
-# setting examineAll = 0 inside while loop
-iteration = 0
-while (numChanged > 0 or examineAll):
+	# when we start no lambdas are changed
 	numChanged = 0
-	if examineAll:
-		# print "examineAll = 1"
-		for i in range(static_info.numExample):
-			# print "i: ", i
-			numChanged = numChanged + examineExample(i, static_info, dynamic_info)
-	else:
-		for i in dynamic_info.nonboundlambdaindices:
-			numChanged = numChanged + examineExample(i, static_info, dynamic_info)
-	if examineAll:
-		examineAll = 0
-	elif (numChanged == 0):
-		examineAll = 1
-	iteration = iteration + 1
-	print "iteration: ", iteration
 
-# writing to output files
-if (static_info.kernel_type == 0):
-	weights = "weights_linear"+str(static_info.C)+"_"+trainingInput.training_output
-	np.savetxt(weights, dynamic_info.weights)
-threshold = "threshold_type"+str(static_info.kernel_type)+trainingInput.training_output
-lambdas = "lambdas_type"+str(static_info.kernel_type)+trainingInput.training_output
-nonzerolambdas = "nonzerolambdaind_type"+str(static_info.kernel_type)+trainingInput.training_output
-np.savetxt(threshold, [dynamic_info.threshold])
-np.savetxt(lambdas, dynamic_info.lambdas)
-np.savetxt(nonzerolambdas, dynamic_info.nonboundlambdaindices)
+	# We choose two strategy to choose lambda1
+	# we iterate over the entire training set, determining whether each example
+	# violates the KKT conditions. If an example violates the KKT conditions then
+	# its eligible for optimization.
+	# This is done by keeping the below flag one
+	examineAll = 1
 
+	# After one pass through the entire training set, the outer loop iterates
+	# over all examples whose lambdas are neither 0 nor C. This will be done by
+	# setting examineAll = 0 inside while loop
+	iteration = 0
+	while (numChanged > 0 or examineAll):
+		numChanged = 0
+		if examineAll:
+			# print "examineAll = 1"
+			for i in range(static_info.numExample):
+				# print "i: ", i
+				numChanged = numChanged + examineExample(i, static_info, dynamic_info)
+		else:
+			for i in dynamic_info.nonboundlambdaindices:
+				numChanged = numChanged + examineExample(i, static_info, dynamic_info)
+		if examineAll:
+			examineAll = 0
+		elif (numChanged == 0):
+			examineAll = 1
+		iteration = iteration + 1
+		print "iteration: ", iteration
 
-# plot
-# x = [1, 1, 2, 1, 4, 2, 4, 5, 6, 2]
-# y = [2, 3, 1, 4, 1, 3, 2, 3, 4, 4]
-# z = [1, 1, -1, 1, -1, 1, -1, -1, -1, 1]
-# plt.scatter(x, y, c=z, s=500)
-# t = np.arange(0, 5, 1)
-# if static_info.kernel_type == 0:
-# 	plt.plot(t, -(dynamic_info.weights[0]/dynamic_info.weights[1])*t + dynamic_info.threshold/dynamic_info.weights[1])
-# 	plt.show()
+	# writing to output files
+	if (static_info.kernel_type == 0):
+		weights = "weights_linear" + str(static_info.C) + "_" + trainingInput.training_output
+		np.savetxt(weights, dynamic_info.weights)
+	threshold = "threshold_type" + str(static_info.kernel_type) + trainingInput.training_output
+	lambdas = "lambdas_type" + str(static_info.kernel_type) + trainingInput.training_output
+	nonzerolambdas = "nonzerolambdaind_type" + str(static_info.kernel_type) + trainingInput.training_output
+	np.savetxt(threshold, [dynamic_info.threshold])
+	np.savetxt(lambdas, dynamic_info.lambdas)
+	np.savetxt(nonzerolambdas, dynamic_info.nonzerolambdaindices)
 
-# this plots ex8b_mod.txt
-x = np.arange(-0.9, 0.9, 0.025)
-y = np.arange(-0.9, 0.9, 0.025)
-X, Y = np.meshgrid(x, y)
-Z = np.zeros(X.shape)
-for i in range(len(y)):
-	for j in range(len(x)):
-		example_point = [cFeature(0, x[j]), cFeature(1, y[i])]
-		for k in dynamic_info.nonzerolambdaindices:
-			Z[i, j] = Z[i, j] + static_info.target[k]*dynamic_info.lambdas[k]*kernel(example_point, static_info.training_example[k], static_info)
-		Z[i, j] = Z[i, j] - dynamic_info.threshold
-
-plt.contour(X, Y, Z, [0])
