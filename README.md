@@ -24,6 +24,10 @@ DEGREE = 4
 
 [RBFKERNEL]
 RBFPARA = 1000
+
+[PREDICTION]
+FILE_TO_PREDICT = predict_ex8b_500
+PREDICTION_OUTPUT = prediction_output
 ```
 
 Currently, the program supports three types of kernel (linear, polynomial and gaussian). We specify a penalty parameter (C) which is required for each kernel. Training examples are read from `TRAINING_FILE` and output is written to `TRAINING_OUTPUT` files. If polynomial kernel is chosen then we must specify degree of polynomial kernel and if we choose RBF kernel then we must specify a positive RBFPARA which is essentially gamma in [usual formula](https://en.wikipedia.org/wiki/Radial_basis_function_kernel). 
