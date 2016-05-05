@@ -45,7 +45,7 @@ I plotted decision boundary for second example from [here](http://openclassroom.
 ![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_Poly_degree_4_C_100_0_db_tp.png)
 * choice of kernel : RBF
 ![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_RBF_gamma_1_0_C_5_0_db_tp.png)
-![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_RBF_gamma_1000_0_C_5_0_db_tp.png)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_RBF_gamma_1000_0_C_1_0_db_tp.png)
 * Prediction (Orange belongs to Red class and Green belongs to Blue class)
 ![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_RBF_gamma_1000_0_C_3_0_db_tp_pr.png)
 
