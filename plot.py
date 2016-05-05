@@ -1,7 +1,3 @@
-plot_decision_boundary = 1
-plot_training_points = 1
-plot_new_examples = 0
-
 from InitializeTraining import *
 from ProcessTrainingInput import *
 from MainLearning import StaticInfo, kernel
@@ -11,6 +7,10 @@ import sys
 import numpy as np
 
 import matplotlib.pyplot as pl
+
+plot_decision_boundary = 1
+plot_training_points = 1
+plot_new_examples = 1
 
 
 # lets read the config and get essential informations
@@ -30,6 +30,10 @@ trainingInput = fReadInput()
 target, training_example, numExample, maxFeature = fReadTrainingFile(trainingInput.training_file)
 new_examples = fReadPredictionFile(file_to_predict)
 
+if maxFeature != 2:
+	print "we can only make 2D plots. Examples have %s features" % (maxFeature,)
+	sys.exit()
+
 static_info = StaticInfo(target, training_example, numExample, maxFeature, trainingInput.c, trainingInput.kernel_type, trainingInput.kernel_degree, trainingInput.kernel_rbf_para)
 
 threshold_file = "threshold_type" + str(static_info.kernel_type) + trainingInput.training_output
@@ -41,13 +45,10 @@ lambdas = np.genfromtxt(lambdas_file).tolist()
 nonzerolambdaindices = np.genfromtxt(nonzerolambdasindices_file).tolist()
 
 
-
 training_X_red = []
 training_Y_red = []
 training_X_blue = []
 training_Y_blue = []
-
-
 
 
 for i in range(len(training_example)):
@@ -62,13 +63,13 @@ for i in range(len(training_example)):
 # plotting decision boundary
 if plot_decision_boundary:
 	# Lets define grids
-	max_X = 1.2* max(training_X_red and training_X_blue)
-	max_Y = 1.2* max(training_Y_red and training_Y_blue)
+	max_X = 1.2 * max(training_X_red and training_X_blue)
+	max_Y = 1.2 * max(training_Y_red and training_Y_blue)
 	min_X = 1.2 * min(training_X_red and training_X_blue)
 	min_Y = 1.2 * min(training_Y_red and training_Y_blue)
 
-	int_x = (max_X - min_X)/100. 
-	int_y = (max_Y - min_Y)/100.
+	int_x = (max_X - min_X) / 100.
+	int_y = (max_Y - min_Y) / 100.
 	x = np.arange(min_X, max_X, int_x)
 	y = np.arange(min_Y, max_Y, int_y)
 	X, Y = np.meshgrid(x, y)
@@ -77,13 +78,12 @@ if plot_decision_boundary:
 		for j in range(len(x)):
 			example_point = [cFeature(0, x[j]), cFeature(1, y[i])]
 			for k in [int(a) for a in nonzerolambdaindices]:
-				Z[i,j] = Z[i,j] + static_info.target[k] * lambdas[k] * kernel(example_point, static_info.training_example[k], static_info)
-			Z[i,j] = Z[i,j] - threshold
-	
-	pl.contour(X, Y, Z, [0], color='black')
+				Z[i, j] = Z[i, j] + static_info.target[k] * lambdas[k] * kernel(example_point, static_info.training_example[k], static_info)
+			Z[i, j] = Z[i, j] - threshold
 
+	cs = pl.contour(X, Y, Z, [0], color='black')
+	# pl.clabel(cs, inline=1, fontsize=10)
 
-# plotting 
 
 if plot_training_points:
 	pl.scatter(training_X_red, training_Y_red, color='r')
@@ -106,7 +106,28 @@ if plot_new_examples:
 
 	pl.scatter(predict_X_orange, predict_Y_orange, color='orange')
 	pl.scatter(predict_X_green, predict_Y_green, color='g')
+t = "SVM"
+k = static_info.kernel_type
+c = static_info.C
+if k == 0:
+	t += " linear"
+elif k == 1:
+	t += " Poly degree "
+	t += str(static_info.kernel_degree)
+else:
+	t += " RBF gamma "
+	t += str(static_info.kernel_rbf_para)
+t += " C " + str(c)
 
+pl.title(t)
 
-
+if plot_decision_boundary:
+	t += " db"
+if plot_training_points:
+	t += " tp"
+if plot_new_examples:
+	t += " pr"
+t = t.replace('.', '_')
+t = t.replace(' ', '_')
+pl.savefig('image/' + t + '.png')
 pl.show()

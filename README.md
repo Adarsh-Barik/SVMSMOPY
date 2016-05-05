@@ -32,12 +32,20 @@ Currently, the program supports three types of kernel (linear, polynomial and ga
 * `MainLearning.py` : main program to be run
 * `ProcessTrainingInput.py` : Reads input from config file and checks their sanity
 * `InitializeTraining.py` : Reads training examples and stores them
+*  PredictionModule.py  : Classifying new examples (uses config)
+*  plot.py  : plots results
 
 ## Result
 I plotted decision boundary for second example from [here](http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLearning&doc=exercises/ex8/ex8.html). 
+* choice of kernel : Linear
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_linear_C_1_0_db_tp.png)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_linear_C_100_0_db_tp.png)
+* choice of kernel : Polynomial
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_Poly_degree_2_C_100_0_db_tp.png)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_Poly_degree_4_C_100_0_db_tp.png)
 * choice of kernel : RBF
-* RBFPARA : 100
-![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/ex8b_gamma100.png)
-* RBFPARA : 1000 
-![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/ex8b_gamma1000.png)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_RBF_gamma_1_0_C_5_0_db_tp.png)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_RBF_gamma_1000_0_C_5_0_db_tp.png)
+* Prediction (Orange belongs to Red class and Green belongs to Blue class)
+![alt tag](https://raw.githubusercontent.com/Adarsh-Barik/SVMSMOPY/master/images/SVM_RBF_gamma_1000_0_C_3_0_db_tp_pr.png)
 
